@@ -1,14 +1,26 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Weather
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div text-center>Search 5 day weather in your area:</div>
+  <ion-list>
+    <ion-item>
+      <ion-label>zip code:</ion-label>
+      <ion-input placeholder="89123" [(ngModel)]="zipcode" min="5" max="5"></ion-input>
+    </ion-item>
+
+    <button (click)="getWeather(zipcode)">click</button>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let weather of forecast">
+      {{ weather }}
+    </ion-item>
+  </ion-list>
+
 </ion-content>
