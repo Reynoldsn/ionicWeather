@@ -1,3 +1,50 @@
 page-home {
 
+  font-family: "Libre Franklin";
+
+  .scroll-content {
+    background-color: #fbfbfb;
+    padding: 0 20px 20px !important;
+  }
+
+  .item-inner {
+    border-bottom: 0.55px solid #57524F  !important;
+  }
+
+  .title {
+    padding: 0;
+  }
+
+  .wa {
+    &-navbar {
+      .toolbar-background {
+        background-color: #fbfbfb;
+      }
+    }
+
+    &-title {
+      .toolbar-title {
+        color: #ff7f30;
+      }
+    }
+
+    &-input {
+      background-color: #fbfbfb;
+      color: #57524F;
+      padding: 0 0 10px;
+    }
+
+    &-button__search {
+      background-color: transparent;
+      border: 1px solid #c8c7cc;
+      color: #c8c7cc;
+      text-transform: uppercase;
+
+      &:active {
+        color: #57524F;
+        background-color: transparent;
+        border: 1px solid #57524F;
+      }
+    }
+  }
 }

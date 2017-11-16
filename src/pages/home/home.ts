@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-home',
@@ -11,8 +12,11 @@ export class HomePage {
 
   currentWeather: any;
   forecast: any;
+  location: any;
+
 
   constructor(public http: Http) {
+
   }
 
   getWeather(zipcode) {
@@ -22,13 +26,13 @@ export class HomePage {
     this.http.get(zipQuery)
       .map(res => res.json())
       .subscribe((results) => {
-        _.each(results.forecast.forecastday, (p) => {
-          console.log(p);
-
-
-          this.forecast = [p.day.avghumidity];
+        console.log('results', results);
+       this.location = results.location.name + ', ' + results.location.region;
+        _.each(results.forecast, (p) => {
+           console.log(p);
+           this.forecast = p;
         })
-        this.currentWeather = results.current;
+        this.currentWeather = results.current.feelslike_f;
       })
   }
 
