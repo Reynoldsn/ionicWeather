@@ -1,40 +1,74 @@
 <ion-header no-border>
-  <ion-navbar class="wa-navbar">
-    <ion-title class="wa-title">
-      Current Weather and Forecast:
-    </ion-title>
+  <ion-navbar class="wa-navbar"
+              *ngIf="!searching">
+    <div class="wa-header__title">weather</div>
+    <ion-buttons end class="wa-nav__button">
+      <button (click)="toggleSearch()">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-navbar *ngIf="searching">
+    <ion-item>
+      <ion-label class="wa-zip">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-label>
+      <ion-input class="wa-input"
+                 placeholder="89123"
+                 type="number"
+                 [(ngModel)]="zipcode">
+      </ion-input>
+    </ion-item>
+    <div class="wa-nav__button">
+      <button class="wa-nav__button--zip"
+              (click)="getWeather(zipcode)">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+    </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-spinner name="bubbles"
+               *ngIf="isLoading">
+  </ion-spinner>
 
-  <ion-item class="wa-input">
-    <ion-label class="wa-zip">Zip:</ion-label>
-    <ion-input placeholder="89123" [(ngModel)]="zipcode">
-    </ion-input>
-  </ion-item>
-
-  <button (click)="getWeather(zipcode)"
-          class="wa-button__search"
-          ion-button
-          full
-          round>
-          search
-  </button>
-
-  <h1 style="color: red">
-    {{ location }}
-  </h1>
-  <h2 style="color: blue">
-    {{ currentWeather }}
-  </h2>
-
-  <ion-list>
-    <ion-item *ngFor="let weather of forecast">
+  <div *ngIf="!isLoading">
+    <div class="wa-temp__location">
+      {{ location }}
+    </div>
+    <div class="wa-temp__container">
+      <div class="wa-temp__high-low">
+        {{ minTemp }}&deg; | {{ maxTemp }}&deg;
+      </div>
+      <div class="wa-temp__current">
+        {{ currentWeather }}&deg;
+      </div>
+      <ion-row class="wa-temp__container-footer">
+        <ion-col class="wa-temp__container-icons" col-6>
+          <img src="../../assets/icon/Weather-cloud-storm.svg" />
+        </ion-col>
+        <ion-col class="wa-temp__container-icons" col-6>
+          <img src="../../assets/icon/Weather-wind.svg" />
+        </ion-col>
+        <ion-col col-6>
+          {{ percip }}%
+        </ion-col>
+        <ion-col col-6>
+          {{ wind }}mph
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-item-group>
+      <ion-item>
+        <ion-label>Feels like:</ion-label>
+        <ion-note item-end>{{ feelsLike }}&deg;</ion-note>
+      </ion-item>
+    </ion-item-group>
+<!--     <ion-item *ngFor="let weather of forecast">
       <h2 *ngIf="weather">5 day weather</h2>
       {{ weather.date }}
       {{ weather.day.maxtemp_f }}
-    </ion-item>
-  </ion-list>
-
+    </ion-item> -->
+  </div>
 </ion-content>
